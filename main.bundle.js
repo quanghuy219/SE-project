@@ -37,7 +37,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "#mainNav {\n    position: absolute;\n    border-bottom: 1px solid #e9ecef;\n    background-color: white;\n    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  }\n  \n  #mainNav .navbar-brand {\n    font-weight: 800;\n    color: #343a40;\n  }\n  \n  #mainNav .navbar-toggler {\n    font-size: 12px;\n    font-weight: 800;\n    padding: 13px;\n    text-transform: uppercase;\n    color: #343a40;\n  }\n  \n  #mainNav .navbar-nav > li.nav-item > a {\n    font-size: 12px;\n    font-weight: 800;\n    letter-spacing: 1px;\n    text-transform: uppercase;\n  }\n  \n  @media only screen and (min-width: 992px) {\n    #mainNav {\n      border-bottom: 1px solid transparent;\n      background: transparent;\n    }\n    #mainNav .navbar-brand {\n      padding: 10px 20px;\n      color: #fff;\n    }\n    #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {\n      color: rgba(255, 255, 255, 0.8);\n    }\n    #mainNav .navbar-nav > li.nav-item > a {\n      padding: 10px 20px;\n      color: #fff;\n    }\n    #mainNav .navbar-nav > li.nav-item > a:focus, #mainNav .navbar-nav > li.nav-item > a:hover {\n      color: rgba(255, 255, 255, 0.8);\n    }\n  }\n  \n  @media only screen and (min-width: 992px) {\n    #mainNav {\n      -webkit-transition: background-color 0.2s;\n      transition: background-color 0.2s;\n      /* Force Hardware Acceleration in WebKit */\n      -webkit-transform: translate3d(0, 0, 0);\n      transform: translate3d(0, 0, 0);\n      -webkit-backface-visibility: hidden;\n    }\n    #mainNav.is-fixed {\n      /* when the user scrolls down, we hide the header right above the viewport */\n      position: fixed;\n      top: -67px;\n      -webkit-transition: -webkit-transform 0.2s;\n      transition: -webkit-transform 0.2s;\n      transition: transform 0.2s;\n      transition: transform 0.2s, -webkit-transform 0.2s;\n      border-bottom: 1px solid white;\n      background-color: rgba(255, 255, 255, 0.9);\n    }\n    #mainNav.is-fixed .navbar-brand {\n      color: #212529;\n    }\n    #mainNav.is-fixed .navbar-brand:focus, #mainNav.is-fixed .navbar-brand:hover {\n      color: #0085A1;\n    }\n    #mainNav.is-fixed .navbar-nav > li.nav-item > a {\n      color: #212529;\n    }\n    #mainNav.is-fixed .navbar-nav > li.nav-item > a:focus, #mainNav.is-fixed .navbar-nav > li.nav-item > a:hover {\n      color: #0085A1;\n    }\n    #mainNav.is-visible {\n      /* if the user changes the scrolling direction, we show the header */\n      -webkit-transform: translate3d(0, 100%, 0);\n      transform: translate3d(0, 100%, 0);\n    }\n  }", ""]);
+exports.push([module.i, "#mainNav {\n    position: absolute;\n    border-bottom: 1px solid #e9ecef;\n    background-color: white;\n    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  }\n  \n  #mainNav .navbar-brand {\n    font-weight: 800;\n    color: #343a40;\n  }\n  \n  #mainNav .navbar-toggler {\n    font-size: 12px;\n    font-weight: 800;\n    padding: 13px;\n    text-transform: uppercase;\n    color: #343a40;\n  }\n  \n  #mainNav .navbar-nav > li.nav-item > a {\n    font-size: 12px;\n    font-weight: 800;\n    letter-spacing: 1px;\n    text-transform: uppercase;\n  }\n  \n  .search-box {\n  width: 400%;\n}\n  \n  @media only screen and (min-width: 992px) {\n    #mainNav {\n      border-bottom: 1px solid transparent;\n      background: transparent;\n    }\n    #mainNav .navbar-brand {\n      padding: 10px 20px;\n      color: #fff;\n    }\n    #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {\n      color: rgba(255, 255, 255, 0.8);\n    }\n    #mainNav .navbar-nav > li.nav-item > a {\n      padding: 10px 20px;\n      color: #fff;\n    }\n    #mainNav .navbar-nav > li.nav-item > a:focus, #mainNav .navbar-nav > li.nav-item > a:hover {\n      color: rgba(255, 255, 255, 0.8);\n    }\n    .search-box {\n      width: 350px !important;\n    }\n  }\n  \n  @media only screen and (min-width: 992px) {\n    #mainNav {\n      -webkit-transition: background-color 0.2s;\n      transition: background-color 0.2s;\n      /* Force Hardware Acceleration in WebKit */\n      -webkit-transform: translate3d(0, 0, 0);\n      transform: translate3d(0, 0, 0);\n      -webkit-backface-visibility: hidden;\n    }\n    #mainNav.is-fixed {\n      /* when the user scrolls down, we hide the header right above the viewport */\n      position: fixed;\n      top: -67px;\n      -webkit-transition: -webkit-transform 0.2s;\n      transition: -webkit-transform 0.2s;\n      transition: transform 0.2s;\n      transition: transform 0.2s, -webkit-transform 0.2s;\n      border-bottom: 1px solid white;\n      background-color: rgba(255, 255, 255, 0.9);\n    }\n    #mainNav.is-fixed .navbar-brand {\n      color: #212529;\n    }\n    #mainNav.is-fixed .navbar-brand:focus, #mainNav.is-fixed .navbar-brand:hover {\n      color: #0085A1;\n    }\n    #mainNav.is-fixed .navbar-nav > li.nav-item > a {\n      color: #212529;\n    }\n    #mainNav.is-fixed .navbar-nav > li.nav-item > a:focus, #mainNav.is-fixed .navbar-nav > li.nav-item > a:hover {\n      color: #0085A1;\n    }\n    #mainNav.is-visible {\n      /* if the user changes the scrolling direction, we show the header */\n      -webkit-transform: translate3d(0, 100%, 0);\n      transform: translate3d(0, 100%, 0);\n    }\n    .search-box {\n      width: 350px !important;\n    }\n  }", ""]);
 
 // exports
 
@@ -50,7 +50,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Navigation -->\n<!-- *ngIf=\"router.url.indexOf('/main')!=-1\" -->\n<nav  class=\"navbar navbar-expand-lg navbar-light fixed-top\" id=\"mainNav\">\n  <div class=\"container\">\n    <a class=\"navbar-brand\" routerLink='main/home'>Blog</a>\n    <button class=\"navbar-toggler navbar-toggler-right collapsed\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarResponsive\" aria-controls=\"navbarResponsive\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      Menu\n      <i class=\"fa fa-bars\"></i>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarResponsive\">\n      <ul class=\"navbar-nav ml-auto\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"main/home\">Home</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"main/edit-post/0\">Create Your Post</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" *ngIf=\"isLog\" routerLink=\"main/profile\">Profile</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"isLog\">\n          <a class=\"nav-link\" routerLink=\"login\" (click)=\"storageService.set('token',null)\">Logout</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"!isLog\">\n          <a class=\"nav-link\" routerLink=\"login\">Login</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"!isLog\">\n            <a class=\"nav-link\" routerLink=\"login/register\">Sign up</a>\n        </li>  \n      </ul>\n    </div>\n  </div>\n</nav>\n\n<router-outlet></router-outlet>\n\n <!-- Footer -->\n <footer *ngIf=\"router.url.indexOf('/main')!=-1\" class=\"footer\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-8 col-md-10 mx-auto\">\n        <ul class=\"list-inline text-center\">\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-twitter fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-facebook fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-github fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n        </ul>\n        <p class=\"copyright text-muted\">Copyright &copy; Your Website 2018</p>\n      </div>\n    </div>\n  </div>\n</footer>\n"
+module.exports = "<!-- Navigation -->\n<!-- *ngIf=\"router.url.indexOf('/main')!=-1\" -->\n<nav  class=\"navbar navbar-expand-lg navbar-light fixed-top\" id=\"mainNav\">\n  <div class=\"container\">\n    <a class=\"navbar-brand\" routerLink='main/home'>Blog</a>\n    <button class=\"navbar-toggler navbar-toggler-right collapsed\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarResponsive\" aria-controls=\"navbarResponsive\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      Menu\n      <i class=\"fa fa-bars\"></i>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarResponsive\">\n      <ul class=\"navbar-nav ml-auto\">\n        <li class=\"nav-item\" (keydown)=\"keyDownFunction($event)\">\n            <div class=\"input-group\">\n                <input class=\"form-control search-box\" [(ngModel)]=\"searchContent\" name=\"searchcontent\" placeholder=\"Find an article...\">\n              </div>\n        </li> \n        <li class=\"nav-item\" id=\"search-button\">\n            <a class=\"nav-link\" (click)=\"search()\"><i class=\"fa fa-search\"></i></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"main/home\">Home</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"main/edit-post/0\">Create Your Post</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" *ngIf=\"isLog\" routerLink=\"main/profile\">Profile</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"isLog\">\n          <a class=\"nav-link\" routerLink=\"login\" (click)=\"logout()\">Logout</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"!isLog\">\n          <a class=\"nav-link\" routerLink=\"login\">Login</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"!isLog\">\n            <a class=\"nav-link\" routerLink=\"login/register\">Sign up</a>\n        </li>  \n      </ul>\n    </div>\n  </div>\n</nav>\n\n<router-outlet></router-outlet>\n\n <!-- Footer -->\n <footer *ngIf=\"router.url.indexOf('/main')!=-1\" class=\"footer\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-8 col-md-10 mx-auto\">\n        <ul class=\"list-inline text-center\">\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-twitter fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-facebook fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-github fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n        </ul>\n        <p class=\"copyright text-muted\">Copyright &copy; Your Website 2018</p>\n      </div>\n    </div>\n  </div>\n</footer>\n"
 
 /***/ }),
 
@@ -80,11 +80,42 @@ var AppComponent = /** @class */ (function () {
         this.router = router;
         this.storageService = storageService;
         this.isLog = false;
+        this.searchContent = "";
         this.router.events.subscribe(function (val) {
             $(window).scrollTop(0);
             _this.isLog = _this.storageService.get('token') ? true : false;
         });
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        $(window).click(function () {
+            _this.searchContent = "";
+        });
+        $('#search-button').click(function (e) {
+            e.stopPropagation();
+        });
+    };
+    AppComponent.prototype.search = function () {
+        if (this.searchContent.length) {
+            this.router.navigate(["/main/search"], { queryParams: { query: this.searchContent } });
+            this.searchContent = "";
+        }
+    };
+    // remove all data in session storage when loging out
+    AppComponent.prototype.logout = function () {
+        this.storageService.removeItem("token");
+        this.storageService.removeItem("id");
+        this.storageService.removeItem("profilePicture");
+        this.storageService.removeItem("username");
+        this.storageService.removeItem("password");
+    };
+    AppComponent.prototype.keyDownFunction = function (event) {
+        if (event.keyCode == 13) {
+            this.search();
+        }
+        if (event.keyCode == 27)
+            this.searchContent = ""; // press esc to exit edit mode
+    };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-root',
@@ -144,7 +175,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
                 __WEBPACK_IMPORTED_MODULE_6__core_core_module__["a" /* CoreModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_5__angular_http__["c" /* HttpModule */]
+                __WEBPACK_IMPORTED_MODULE_5__angular_http__["c" /* HttpModule */],
             ],
             providers: [],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]]
@@ -192,12 +223,14 @@ var AppRoutes = [{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__category_service__ = __webpack_require__("../../../../../src/app/core/api/category.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__image_service__ = __webpack_require__("../../../../../src/app/core/api/image.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__dialog_dialog_module__ = __webpack_require__("../../../../../src/app/core/dialog/dialog.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__comment_service__ = __webpack_require__("../../../../../src/app/core/api/comment.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -223,7 +256,8 @@ var ApiModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__user_service__["a" /* UserService */],
                 __WEBPACK_IMPORTED_MODULE_5__post_service__["a" /* PostService */],
                 __WEBPACK_IMPORTED_MODULE_6__category_service__["a" /* CategoryService */],
-                __WEBPACK_IMPORTED_MODULE_7__image_service__["a" /* ImageService */]
+                __WEBPACK_IMPORTED_MODULE_7__image_service__["a" /* ImageService */],
+                __WEBPACK_IMPORTED_MODULE_9__comment_service__["a" /* CommentService */]
             ]
         })
     ], ApiModule);
@@ -264,6 +298,55 @@ var CategoryService = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__util_main_api_service__["a" /* MainApiService */]])
     ], CategoryService);
     return CategoryService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/core/api/comment.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CommentService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_main_api_service__ = __webpack_require__("../../../../../src/app/core/util/main-api.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_storage_service__ = __webpack_require__("../../../../../src/app/core/util/storage.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CommentService = /** @class */ (function () {
+    function CommentService(mainApi, storageService) {
+        this.mainApi = mainApi;
+        this.storageService = storageService;
+    }
+    CommentService.prototype.post = function (params) {
+        params.token = this.storageService.get('token');
+        return this.mainApi.post('comment/', params);
+    };
+    CommentService.prototype.delete = function (id) {
+        var token = this.storageService.get('token');
+        return this.mainApi.delete('comment/' + id + '?token=' + token);
+    };
+    CommentService.prototype.put = function (params) {
+        params.token = this.storageService.get('token');
+        return this.mainApi.put('comment', params);
+    };
+    CommentService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__util_main_api_service__["a" /* MainApiService */],
+            __WEBPACK_IMPORTED_MODULE_2__util_storage_service__["a" /* StorageService */]])
+    ], CommentService);
+    return CommentService;
 }());
 
 
@@ -348,6 +431,9 @@ var LoginService = /** @class */ (function () {
     LoginService.prototype.login = function (params) {
         return this.mainApi.post('login', params);
     };
+    LoginService.prototype.forgetPassword = function (params) {
+        return this.mainApi.post('forgetpassword', params);
+    };
     LoginService.prototype.refreshKey = function () {
         var _this = this;
         return new __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["a" /* Observable */](function (observer) {
@@ -408,6 +494,9 @@ var PostService = /** @class */ (function () {
     PostService.prototype.list = function (page) {
         return this.mainApi.get('post/10/' + page);
     };
+    PostService.prototype.getByCategory = function (params) {
+        return this.mainApi.get('post/10/' + params.page + "?category=" + params.categoryID);
+    };
     PostService.prototype.getById = function (id) {
         return this.mainApi.get('post/' + id);
     };
@@ -422,6 +511,10 @@ var PostService = /** @class */ (function () {
     PostService.prototype.search = function (params) {
         params.token = this.storageService.get('token');
         return this.mainApi.post('post/search', params);
+    };
+    PostService.prototype.delete = function (id) {
+        var token = this.storageService.get('token');
+        return this.mainApi.delete('post/' + id + '?token=' + token);
     };
     PostService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
@@ -500,7 +593,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var ConfigService = /** @class */ (function () {
     function ConfigService() {
-        this.urlBase = 'http://app-4a5dbc4f-d024-436d-a4c4-74ab131c9fa3.cleverapps.io/api/';
+        this.urlBase = 'https://app-4a5dbc4f-d024-436d-a4c4-74ab131c9fa3.cleverapps.io/api/';
     }
     ConfigService.prototype.getBaseURL = function () {
         return this.urlBase;
@@ -834,6 +927,19 @@ var FormatService = /** @class */ (function () {
         return month + ' ' + day + ', ' + year;
     };
     ;
+    FormatService.prototype.formatDateTime = function (time) {
+        if (!time)
+            time = null;
+        var d = new Date(time);
+        var day = d.getDate();
+        var month = this.monthNames[d.getMonth()];
+        var year = d.getFullYear();
+        var hour = d.getHours();
+        var Hour = ("0" + hour).slice(-2);
+        var minute = d.getMinutes();
+        var Minute = ("0" + minute).slice(-2);
+        return month + ' ' + day + ', ' + year + ' at ' + Hour + ':' + Minute;
+    };
     FormatService.prototype.formatData = function (src, mainProp, level) {
         level = level ? level : 1;
         var flag = {};
@@ -1257,13 +1363,13 @@ var StorageService = /** @class */ (function () {
     function StorageService() {
     }
     StorageService.prototype.set = function (key, value) {
-        localStorage.setItem(key, JSON.stringify(value));
+        sessionStorage.setItem(key, JSON.stringify(value));
     };
     StorageService.prototype.get = function (key) {
-        return JSON.parse(localStorage.getItem(key));
+        return JSON.parse(sessionStorage.getItem(key));
     };
     StorageService.prototype.removeItem = function (key) {
-        delete localStorage[key];
+        delete sessionStorage[key];
     };
     StorageService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
