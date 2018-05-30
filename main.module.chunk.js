@@ -233,6 +233,7 @@ var EditPostComponent = /** @class */ (function () {
         this.display = false;
         this.registData = {};
         this.categoryList = [];
+        // TinyMce configuration
         this.init = {
             selector: 'textarea',
             height: 500,
@@ -476,7 +477,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/main/home/bref-post/bref-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"post-preview\">\n  <a>\n    <h2 class=\"post-title\">\n      {{post?.title}}\n    </h2>\n    <h3 class=\"post-subtitle\">\n      {{post?.subtitle}}\n    </h3>\n  </a>\n  <p class=\"post-meta\">Posted by\n    <a class=\"authorname-tag\" [routerLink]='[\"/main/profile/\",post?.authorID]'>{{post?.author?.name}}</a> on {{formatService.formatDate(post?.createdAt)}}</p>\n    <small class=\"category-tag\"><a href=\"\" [routerLink]='[\"/main/category/\",post?.category?.ID]' [queryParams]=\"{topic: post?.category?.category}\">{{post?.category?.category}}</a></small>\n</div>\n<hr>"
+module.exports = "<div class=\"post-preview\">\n  <a>\n    <h2 class=\"post-title\">\n      {{post?.title}}\n    </h2>\n    <h5 class=\"post-subtitle\">\n      {{post?.subtitle}}&hellip;\n    </h5>\n  </a>\n  <p class=\"post-meta\">Posted by\n    <a class=\"authorname-tag\" [routerLink]='[\"/main/profile/\",post?.authorID]'>{{post?.author?.name}}</a> on {{formatService.formatDate(post?.createdAt)}}</p>\n    <small class=\"category-tag\"><a href=\"\" [routerLink]='[\"/main/category/\",post?.category?.ID]' [queryParams]=\"{topic: post?.category?.category}\">{{post?.category?.category}}</a></small>\n</div>\n<hr>"
 
 /***/ }),
 
@@ -509,6 +510,7 @@ var BrefPostComponent = /** @class */ (function () {
         $(".authorname-tag").click(function (e) {
             e.stopPropagation();
         });
+        this.post.subtitle = this.post.subtitle.split(' ').slice(0, 20).join(' ');
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
