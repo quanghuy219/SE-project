@@ -146,7 +146,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/main/edit-post/edit-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<header *ngIf=\"display\" class=\"masthead\" style=\"background-image: url('assets/img/about-bg.jpg')\">\n  <div class=\"overlay\"></div>\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-8 col-md-10 mx-auto\">\n        <div class=\"page-heading\">\n          <!-- <h1>About Me</h1>  -->\n            <div class=\"form-group\">\n            <label for=\"sel1\">Select category:</label>\n            <select class=\"form-control\" id=\"sel1\" [(ngModel)]=\"registData.categoryID\">\n              <option *ngFor=\"let item of categoryList\" [value]=\"item.ID\">{{item.category}}</option>\n            </select>\n          </div>\n          <input type=\"text\" [(ngModel)]=\"registData.title\" style=\"font-size: 3em; width: 100%\" placeholder=\"Enter Title\">\n          <span class=\"subheading\">{{registData.title}}.</span>\n        </div>\n      </div>\n    </div>\n  </div>\n</header>\n\n<div class=\"container\">\n  <div id=\"display\" style=\"position: absolute;\n    display: block;\n    height: 10px!important;\n    overflow: overlay;\">\n  </div>\n</div>\n\n<div *ngIf=\"display\" class=\"container\">\n    <editor [(ngModel)]=\"dataModel\" (ngModelChange)=\"change()\" [init]=\"init\" apiKey=\"npgwie7b48m3u6qrpvlyc5j4zhhliyxf2be8sm6maperqiu7\"></editor>  \n    <button class=\"btn btn-primary pull-left\" [routerLink]=\"['/main/post/'+id]\" >Cancel</button>\n    <button style=\"float:right\" class=\"btn btn-primary\" (click)=\"preview()\">Preview</button>\n</div>"
+module.exports = "<header *ngIf=\"display\" class=\"masthead\" style=\"background-image: url('assets/img/about-bg.jpg')\">\n  <div class=\"overlay\"></div>\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-8 col-md-10 mx-auto\">\n        <div class=\"page-heading\">\n          <!-- <h1>About Me</h1>  -->\n            <div class=\"form-group\">\n            <label for=\"sel1\">Select category:</label>\n            <select class=\"form-control\" id=\"sel1\" [(ngModel)]=\"registData.categoryID\">\n              <option *ngFor=\"let item of categoryList\" [value]=\"item.ID\">{{item.category}}</option>\n            </select>\n          </div>\n          <input type=\"text\" [(ngModel)]=\"registData.title\" style=\"font-size: 3em; width: 100%\" placeholder=\"Enter Title\">\n          <span class=\"subheading\">{{registData.title}}.</span>\n        </div>\n      </div>\n    </div>\n  </div>\n</header>\n\n<div class=\"container\">\n    <!-- <editor [(ngModel)]=\"dataModel\" (ngModelChange)=\"change()\" [init]=\"init\" apiKey=\"npgwie7b48m3u6qrpvlyc5j4zhhliyxf2be8sm6maperqiu7\"></editor>   -->\n    <textarea id=\"summernote\" name=\"description\" class=\"form-control\" rows=\"3\"></textarea>\n    <button class=\"btn btn-primary pull-left\" [routerLink]=\"[id - 0? '/main/post/'+id: '/main/home']\" >Cancel</button>\n    <button style=\"float:right\" class=\"btn btn-primary\" (click)=\"preview()\">Preview</button>\n</div>\n\n"
 
 /***/ }),
 
@@ -233,51 +233,6 @@ var EditPostComponent = /** @class */ (function () {
         this.display = false;
         this.registData = {};
         this.categoryList = [];
-        // TinyMce configuration
-        this.init = {
-            selector: 'textarea',
-            height: 500,
-            theme: 'modern',
-            plugins: [
-                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                'searchreplace wordcount visualblocks visualchars code fullscreen',
-                'nonbreaking save table contextmenu directionality',
-                'emoticons template paste textcolor colorpicker textpattern imagetools',
-                'image code',
-            ],
-            toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-            toolbar2: 'print preview media | forecolor backcolor emoticons',
-            image_advtab: true,
-            // enable title field in the Image dialog
-            image_title: true,
-            // enable automatic uploads of images represented by blob or data URIs
-            automatic_uploads: true,
-            plugin_preview_width: 650,
-            // add custom filepicker only to Image dialog
-            file_picker_types: 'image',
-            file_picker_callback: function (cb, value, meta) {
-                var input = document.createElement('input');
-                input.setAttribute('type', 'file');
-                input.setAttribute('accept', 'image/*');
-                console.log("this: ", this);
-                input.onchange = function (e) {
-                    console.log("this.file: ", cb, value, meta);
-                    var file = e.target.files[0];
-                    var reader = new FileReader();
-                    reader.onload = function () {
-                        var id = 'blobid' + (new Date()).getTime();
-                        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                        var base64 = reader.result.split(',')[1];
-                        var blobInfo = blobCache.create(id, file, base64);
-                        blobCache.add(blobInfo);
-                        // call the callback and populate the Title field with the file name
-                        cb(blobInfo.blobUri(), { title: file.name });
-                    };
-                    reader.readAsDataURL(file);
-                };
-                input.click();
-            }
-        };
     }
     EditPostComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -286,6 +241,7 @@ var EditPostComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        $('#summernote').summernote();
                         this.loading.show();
                         return [4 /*yield*/, this.loginService.refreshKey().toPromise().then(function (data) {
                                 // this.loading.hide();
@@ -306,12 +262,11 @@ var EditPostComponent = /** @class */ (function () {
                         else {
                             data = this.storageService.get('preview' + this.id);
                             console.log("preview Data: ", data);
-                            setTimeout(function () {
-                                $("#display").html(_this.dataModel);
-                            }, 50);
                             if (data) {
                                 this.registData = data;
                                 this.dataModel = this.registData.content;
+                                $('#summernote').summernote('code', this.dataModel);
+                                console.log("init summernote");
                             }
                             this.loading.hide();
                         }
@@ -331,19 +286,13 @@ var EditPostComponent = /** @class */ (function () {
             _this.registData = data.data;
             _this.dataModel = _this.registData.content;
             var data1 = _this.storageService.get('preview' + _this.id);
-            console.log("preview Data: ", data1);
-            setTimeout(function () {
-                $("#display").html(_this.dataModel);
-            }, 50);
             if (data1) {
                 _this.registData = data1;
                 _this.dataModel = _this.registData.content;
             }
+            $('#summernote').summernote('code', _this.dataModel);
             _this.loading.hide();
         });
-    };
-    EditPostComponent.prototype.change = function () {
-        $("#display").html(this.dataModel);
     };
     EditPostComponent.prototype.post = function () {
         var _this = this;
@@ -359,6 +308,7 @@ var EditPostComponent = /** @class */ (function () {
             imgList.toArray().forEach(function (element) {
                 if (element.src.indexOf('data') == 0) {
                     count++;
+                    console.log("image: ", count);
                     var params = {
                         imageURI: element.src
                     };
@@ -378,44 +328,12 @@ var EditPostComponent = /** @class */ (function () {
             }
         });
     };
-    EditPostComponent.prototype.regist = function () {
-        var _this = this;
-        this.post().subscribe(function (data) {
-            _this.registData.content = $('#display').html();
-            if (_this.registData.ID) {
-                _this.postService.edit(_this.registData).subscribe(function (data) {
-                    _this.loading.hide();
-                    console.log("regist post: ", data);
-                    _this.success();
-                }, function (error) {
-                    _this.loading.hide();
-                    _this.dialog.showError("Something goes wrong! Try again!");
-                });
-                return;
-            }
-            _this.postService.post(_this.registData).subscribe(function (data) {
-                _this.loading.hide();
-                _this.registData = data.data;
-                console.log("regist post: ", data);
-                _this.success();
-            }, function (error) {
-                _this.loading.hide();
-                _this.dialog.showError("Something goes wrong! Try again!");
-            });
-        });
-    };
-    EditPostComponent.prototype.success = function () {
-        var _this = this;
-        this.dialog.showSuccess().subscribe(function (data) {
-            _this.router.navigate(['/main/post/' + _this.registData.ID]);
-        });
-    };
     EditPostComponent.prototype.checkValid = function () {
         if (!this.registData.title) {
             this.dialog.showError("Empty title!");
             return false;
         }
-        if (!this.dataModel) {
+        if (!$('#summernote').val()) {
             this.dialog.showError("Empty content!");
             return false;
         }
@@ -424,11 +342,12 @@ var EditPostComponent = /** @class */ (function () {
     EditPostComponent.prototype.preview = function () {
         var _this = this;
         this.post().subscribe(function (data) {
-            _this.registData.content = $('#display').html();
+            _this.registData.content = $('#summernote').summernote('code');
             _this.storageService.set('preview' + _this.id, _this.registData);
             console.log("pre: ", _this.storageService.get('preview' + _this.id));
             _this.loading.hide();
             _this.router.navigate(['main/preview/' + _this.id]);
+            console.log("after upload image: ", _this.registData.content);
         }, function (error) {
             _this.loading.hide();
         });
@@ -510,7 +429,7 @@ var BrefPostComponent = /** @class */ (function () {
         $(".authorname-tag").click(function (e) {
             e.stopPropagation();
         });
-        this.post.subtitle = this.post.subtitle.split(' ').slice(0, 20).join(' ');
+        this.post.subtitle = this.post.subtitle ? this.post.subtitle.split(' ').slice(0, 40).join(' ') : "";
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
@@ -786,7 +705,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/main/post/comment/comment-detail/comment-detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"comment-wrap\">\n    <div class=\"photo\">\n      <img src=\"{{comment?.commentator.profilePicture}}\" class=\"avatar\" alt=\"\">\n      \n    </div>\n  <div  class=\"comment-block\" (mouseenter)=\"showDropdownButton()\" (mouseleave)=\"hideDropdownButton()\">\n    <section class=\"comment-header\">\n        <a class=\"comment-author\" [routerLink]='[\"/main/profile/\",comment?.authorID]'> {{comment?.commentator.name}}</a>\n        <span class=\"dropdown dropdown-arrow\" *ngIf=\"isCommentator\" attr.id=\"comment-block{{comment.ID}}\">\n          <button type=\"button\" class=\"dropdown-toggle dropdown-button\" data-toggle=\"dropdown\"> \n          </button>\n          <div class=\"dropdown-menu\">\n            <a class=\"dropdown-item\" (click)=\"isEdit = true\">Edit</a>\n            <a class=\"dropdown-item\" data-toggle=\"modal\" id=\"deleteButton\" data-target=\"#exampleModal\" (click)=\"delete()\" >Delete</a>\n          </div>\n        </span>\n        <small class=\"comment-date pull-right\">{{formatService.formatDateTime(comment.createdAt)}}</small>\t\n    \n      </section>\n\n    <p class=\"comment-text\" *ngIf=\"!isEdit\">{{comment?.content}}</p>\n    <div class=\"edit-block\" *ngIf=\"isEdit\">\n      <form action=\"\" (keydown)=\"keyDownFunction($event)\" >\n          <input type=\"text\"  [(ngModel)]=\"editContent\" name=\"editcontent\" class=\"form-control\" value={{comment?.content}} (focusout)=\"cancelEdit()\">\n      </form>\n      <!-- attr.id=\"input{{comment.ID}}\" -->\n\n      <small>Press Esc to <a href=\"\" (click)=\"cancelEdit()\">cancel</a> </small>\n    </div>\n    \n  </div>\n</div>\n"
+module.exports = "<div class=\"comment-wrap\">\n    <div class=\"photo\">\n      <img src=\"{{comment?.commentator.profilePicture}}\" class=\"avatar\" alt=\"\">\n      \n    </div>\n  <div class=\"comment-block\" (click)=\"showDropdownButton()\" (mouseenter)=\"showDropdownButton()\" (mouseleave)=\"hideDropdownButton()\">\n    <section class=\"comment-header\">\n        <a class=\"comment-author\" [routerLink]='[\"/main/profile/\",comment?.authorID]'> {{comment?.commentator.name}}</a>\n        <span class=\"dropdown dropdown-arrow\" *ngIf=\"isCommentator\" attr.id=\"comment-block{{comment.ID}}\">\n          <button type=\"button\" class=\"dropdown-toggle dropdown-button\" data-toggle=\"dropdown\"> \n          </button>\n          <div class=\"dropdown-menu\">\n            <a class=\"dropdown-item\" (click)=\"isEdit = true\">Edit</a>\n            <a class=\"dropdown-item\" data-toggle=\"modal\" id=\"deleteButton\" data-target=\"#deleteModal\" (click)=\"delete()\">Delete</a>\n          </div>\n        </span>\n        <small class=\"comment-date pull-right\">{{formatService.formatDateTime(comment.createdAt)}}</small>\t\n    \n      </section>\n\n    <p class=\"comment-text\" *ngIf=\"!isEdit\">{{comment?.content}}</p>\n    <div class=\"edit-block\" *ngIf=\"isEdit\">\n      <form action=\"\" (keydown)=\"keyDownFunction($event)\" >\n          <input type=\"text\"  [(ngModel)]=\"editContent\" name=\"editcontent\" class=\"form-control\" value={{comment?.content}} (focusout)=\"cancelEdit()\">\n      </form>\n      <!-- attr.id=\"input{{comment.ID}}\" -->\n\n      <small>Press Esc to <a href=\"\" (click)=\"cancelEdit()\">cancel</a> </small>\n    </div>\n    \n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -820,6 +739,7 @@ var CommentDetailComponent = /** @class */ (function () {
         this.storageService = storageService;
         this.commmentComponent = commmentComponent;
         this.commentService = commentService;
+        this.emitDelete = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
         this.isCommentator = false; // if the current user is the commentator
         this.isEdit = false; // open and close the comment edit input
     }
@@ -832,7 +752,8 @@ var CommentDetailComponent = /** @class */ (function () {
     };
     // send comment to comment component
     CommentDetailComponent.prototype.delete = function () {
-        return this.commmentComponent.setSelectedComment(this.comment);
+        // return this.commmentComponent.setSelectedComment(this.comment);
+        this.emitDelete.emit(this.comment);
     };
     // edit comment
     CommentDetailComponent.prototype.edit = function () {
@@ -882,6 +803,10 @@ var CommentDetailComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
         __metadata("design:type", Object)
     ], CommentDetailComponent.prototype, "comment", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */])
+    ], CommentDetailComponent.prototype, "emitDelete", void 0);
     CommentDetailComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-comment-detail',
@@ -921,7 +846,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/main/post/comment/comment.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-lg-9 col-md-10 mx-auto\">\n\n\n<div class=\"comments\" >\n\t\t<div class=\"comment-wrap\">\n\t\t\t\t<div class=\"comment-block\">\n\t\t\t\t\t\t<form action=\"\" #commentForm=\"ngForm\" >\n\t\t\t\t\t\t\t\t<textarea name=\"comment-box\" id=\"comment-box\" [(ngModel)]=\"content\" cols=\"30\" rows=\"3\" [attr.placeholder]=\"isLogin ? 'Add comment...'  : 'Sign in to comment'\" [disabled]=\"!isLogin\"></textarea>\n\t\t\t\t\t\t</form>\n\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary pull-right\" style=\"padding: 10px; font-size: 0.7em;\" (click)=\"submit(); commentForm.reset();\" [disabled]=\"!isLogin\">Submit</button>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"comment-details\" *ngFor=\"let comment of comments\">\n        <app-comment-detail [comment]=\"comment\"></app-comment-detail>\n\t\t</div>\n\t\t   <!-- Modal -->\n\t\t   <div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                  <div class=\"modal-content\">\n                    <div class=\"modal-header\">\n                      <h6 class=\"modal-title\" id=\"exampleModalLongTitle\">Delete</h6>\n                      <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                      </button>\n                    </div>\n                    <div class=\"modal-body modal-content\">\n                      Are you sure you want to delete this comment?\n                    </div>\n                    <div class=\"modal-footer\">\n                      <button type=\"button\" class=\"btn btn-secondary modal-button\" data-dismiss=\"modal\">Close</button>\n                      <button type=\"button\" id=\"confirmButton\" class=\"btn btn-primary modal-button\" (click)=\"delete()\" data-dismiss=\"modal\">Delete</button>\n                    </div>\n                  </div>\n                </div>\n              </div>\n</div>\n\n</div>\n\n</div>\n\n</div>"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-lg-9 col-md-10 mx-auto\">\n\n\n<div class=\"comments\" >\n\t\t<div class=\"comment-wrap\">\n\t\t\t\t<div class=\"comment-block\">\n\t\t\t\t\t\t<form action=\"\" #commentForm=\"ngForm\" >\n\t\t\t\t\t\t\t\t<textarea name=\"comment-box\" id=\"comment-box\" [(ngModel)]=\"content\" cols=\"30\" rows=\"3\" [attr.placeholder]=\"isLogin ? 'Add comment...'  : 'Sign in to comment'\" [disabled]=\"!isLogin\"></textarea>\n\t\t\t\t\t\t</form>\n\t\t\t\t\t\t<button type=\"button\" class=\"btn btn-primary pull-right\" style=\"padding: 10px; font-size: 0.7em;\" (click)=\"submit(); commentForm.reset();\" [disabled]=\"!isLogin\">Submit</button>\n\t\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"comment-details\" *ngFor=\"let comment of comments\">\n        <app-comment-detail [comment]=\"comment\" (emitDelete)=\"setSelectedComment(comment)\"></app-comment-detail>\n\t\t</div>\n\t\t   <!-- Modal -->\n\t\t   <div class=\"modal fade\" id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModalCenterTitle\" aria-hidden=\"true\">\n          \n                <div class=\"modal-dialog\" role=\"document\">\n                  <div class=\"modal-content\">\n                    <div class=\"modal-header\">\n                      <h6 class=\"modal-title\" id=\"deleteModalLongTitle\">Delete</h6>\n                      <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                      </button>\n                    </div>\n                    <div class=\"modal-body modal-content\" style=\"font-size: 17px;\">\n                      Are you sure you want to delete this comment?\n                    </div>\n                    <div class=\"modal-footer\">\n                      <button type=\"button\" class=\"btn btn-secondary modal-button\" data-dismiss=\"modal\">Close</button>\n                      <button type=\"button\" id=\"confirmButton\" class=\"btn btn-primary modal-button\" (click)=\"delete()\" data-dismiss=\"modal\">Delete</button>\n                    </div>\n                  </div>\n                </div>\n              </div>\n</div>\n\n</div>\n\n</div>\n\n</div>"
 
 /***/ }),
 
@@ -1196,8 +1121,11 @@ var PreviewComponent = /** @class */ (function () {
     PreviewComponent.prototype.ngOnInit = function () {
         this.id = this.route.snapshot.paramMap.get('id');
         this.postDetail = this.storageService.get('preview' + this.id);
-        if (this.postDetail)
+        if (this.postDetail) {
             $('#display').html(this.postDetail.content);
+            this.postDetail.subtitle = this.getSubtitle();
+            console.log("postDetail: ", this.postDetail);
+        }
         console.log("preview: ", 'preview' + this.id);
         $(".share-btn").click(function (e) {
             e.preventDefault();
@@ -1231,10 +1159,24 @@ var PreviewComponent = /** @class */ (function () {
     PreviewComponent.prototype.success = function () {
         var _this = this;
         console.log("preview: ", this.postDetail);
-        this.dialog.showSuccess().subscribe(function (data) {
+        this.dialog.showSuccess("Your new post has been created").subscribe(function (data) {
             _this.storageService.set('preview' + _this.id, null);
             _this.router.navigate(['/main/post/' + _this.postDetail.ID]);
         });
+    };
+    PreviewComponent.prototype.getSubtitle = function () {
+        var str;
+        str = $('#display').find('p').filter(function () {
+            return ($.trim($(this).text()).length);
+        }).first().html();
+        return this.strip_html_tags(str);
+    };
+    PreviewComponent.prototype.strip_html_tags = function (str) {
+        if ((str === null) || (str === ''))
+            return "";
+        else
+            str = str.toString();
+        return str.replace(/<[^>]*>/g, '');
     };
     PreviewComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -1265,7 +1207,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".title {\n    margin-top: 10px;\n}\n.header {\n    font-weight: 100;\n    font-size: 25px;\n}\ninput#saveForm:disabled,input#saveForm:hover:disabled {\n    letter-spacing: 0px;\n    opacity: 0.5;\n  }\n.input-label {\n      font-size: 17px;\n  }\n@media screen and (max-width: 990px) {\n    \n}\n@media screen and (max-width: 768px) {\n    .header {\n        font-size: 20px;\n    }\n}\n@media screen and (max-width: 480px) {\n    .header {\n        font-size: 20px;\n    }\n}\n@media screen and (max-width: 414px) {\n    .header {\n        font-size: 20px;\n    }\n}\n@media screen and (max-width: 384px) {\n    .header {\n        font-size: 20px;\n    }\n}", ""]);
+exports.push([module.i, ".title {\n    margin-top: 10px;\n}\n.header {\n    font-weight: 100;\n    font-size: 25px;\n}\ninput#saveForm:disabled,input#saveForm:disabled:hover {\n    letter-spacing: 0px;\n    opacity: 0.5;\n    background-color: #007bff !important;\n  }\n.input-label {\n      font-size: 17px;\n  }\n@media screen and (max-width: 990px) {\n    \n}\n@media screen and (max-width: 768px) {\n    .header {\n        font-size: 20px;\n    }\n}\n@media screen and (max-width: 480px) {\n    .header {\n        font-size: 20px;\n    }\n}\n@media screen and (max-width: 414px) {\n    .header {\n        font-size: 20px;\n    }\n}\n@media screen and (max-width: 384px) {\n    .header {\n        font-size: 20px;\n    }\n}", ""]);
 
 // exports
 
@@ -1278,7 +1220,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/main/profile/change-pass/change-pass.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"col col-lg-8 col-md-8\">\n  <div class=\"title\">\n    <h3 class=\"header\">Change Password</h3>\n  </div>\n  <!--\n  <table class=\"table table-user-information\">\n    <tbody>\n      <tr class=\"form-group\">\n        <td><label for=\"oldpassword\">Password</label></td>\n        \n       \n        <td><input [(ngModel)]=\"password\" class=\"form-control\" name=\"password\" id=\"password\" type=\"Password\" #Password=\"ngModel\" required minlength=\"6\">\n        \n        \n      </td>\n      </tr>\n      \n      <tr class=\"form-group\">\n        <td>New Password</td>\n        <td><input class=\"form-control\" [(ngModel)]=\"pass\" name=\"newpass\" type=\"password\" required minlength=\"6\">\n          <div class=\"alert-danger\">*aaaaa</div>\n        </td>\n      </tr>\n      <tr class=\"form-group\">\n        <td>Confirm Password</td>\n        <td><input class=\"form-control\" [(ngModel)]=\"cfPass\" name=\"cfnewpass\" type=\"password\" required minlength=\"6\"></td>\n      </tr>\n      <tr>\n        <td></td>\n        <td><button class=\"btn btn-primary\" (click)=\"submit()\">submit</button></td>\n      </tr>\n    </tbody>\n  </table>\n-->\n<form #changPasswordForm=\"ngForm\">\n  <div class=\"form-group\">\n    <label class=\"input-label\" for=\"oldpassword\">Password</label>\n    <input [(ngModel)]=\"oldPass\" class=\"form-control\" name=\"oldPassword\" id=\"oldPassword\" type=\"Password\" #oldPassword=\"ngModel\" required minlength=\"6\">\n  </div>\n\n  <div class=\"form-group\">\n    <label class=\"input-label\" for=\"newPass\">New Password</label>\n    <input class=\"form-control\" [(ngModel)]=\"pass\"  name=\"password\" id=\"password\" type=\"Password\" #Password=\"ngModel\" required minlength=\"6\">\n  </div>\n\n  <div *ngIf=\"Password.invalid && (Password.dirty || Password.touched)\" class=\"alert alert-danger validation-err\" >\n    <div *ngIf=\"Password.errors.required\">\n        * Password is required.\n    </div>\n    \n    <div *ngIf=\"Password.errors.minlength\">\n        Password must be at least 6 characters long.\n    </div>\n</div>\n  \n  <div class=\"form-group\">\n    <label class=\"input-label\" for=\"cfnewpass\">Confirm Password</label>\n    <input class=\"form-control\" [(ngModel)]=\"confirmPass\" name=\"confirmPassword\" id=\"repassword\" type=\"Password\" appMatchingValidator=\"password\" #confirmPassword=\"ngModel\" required >\n  </div>\n\n\n  <div *ngIf=\"confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\" >\n     <div *ngIf=\"confirmPassword.errors?.mismatch\">\n        Passwords do not match\n      </div>\n  </div>\n  \n  <button [disabled]=\"changPasswordForm.invalid\" id=\"saveForm\" class=\"btn btn-primary\" (click)=\"submit(); changPasswordForm.reset(); \">submit</button>\n</form>\n</div>"
+module.exports = "<div class=\"col col-lg-8 col-md-8\">\n  <div class=\"title\">\n    <h3 class=\"header\">Change Password</h3>\n  </div>\n  \n<form #changPasswordForm=\"ngForm\">\n  <div class=\"form-group\">\n    <label class=\"input-label\" for=\"oldpassword\">Password</label>\n    <input [(ngModel)]=\"oldPass\" class=\"form-control\" name=\"oldPassword\" id=\"oldPassword\" type=\"Password\" #oldPassword=\"ngModel\" required minlength=\"6\">\n  </div>\n\n  <div class=\"form-group\">\n    <label class=\"input-label\" for=\"newPass\">New Password</label>\n    <input class=\"form-control\" [(ngModel)]=\"pass\"  name=\"password\" id=\"password\" type=\"Password\" #Password=\"ngModel\" required minlength=\"6\">\n  </div>\n\n  <div *ngIf=\"Password.invalid && (Password.dirty || Password.touched)\" class=\"alert alert-danger validation-err\" >\n    <div *ngIf=\"Password.errors.required\">\n        * Password is required.\n    </div>\n    \n    <div *ngIf=\"Password.errors.minlength\">\n        Password must be at least 6 characters long.\n    </div>\n</div>\n  \n  <div class=\"form-group\">\n    <label class=\"input-label\" for=\"cfnewpass\">Confirm Password</label>\n    <input class=\"form-control\" [(ngModel)]=\"confirmPass\" name=\"confirmPassword\" id=\"repassword\" type=\"Password\" appMatchingValidator=\"password\" #confirmPassword=\"ngModel\" required >\n  </div>\n\n\n  <div *ngIf=\"confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)\" class=\"alert alert-danger\" >\n     <div *ngIf=\"confirmPassword.errors?.mismatch\">\n        Passwords do not match\n      </div>\n  </div>\n  \n  <button [disabled]=\"changPasswordForm.invalid\" id=\"saveForm\" class=\"btn btn-primary\" (click)=\"submit(); changPasswordForm.reset(); \">submit</button>\n</form>\n</div>"
 
 /***/ }),
 
@@ -1455,7 +1397,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/main/profile/my-posts/my-posts.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-lg-8 col-md-10 mx-auto\">\n\n      <app-sub-post *ngFor=\"let post of postList\" [post]=\"post\" (delete)=\"delete($event)\"></app-sub-post>\n      <!-- Pager -->\n      <div class=\"clearfix\">\n        <a class=\"btn btn-primary float-left\" *ngIf=\"page!=1\" (click)=\"newerPost()\">&larr; Newer Posts</a>\n        <a class=\"btn btn-primary float-right\" *ngIf=\"postList.length == 10\" (click)=\"olderPost()\">Older Posts &rarr;</a>\n      </div>\n    </div>\n  </div>\n</div>\n\n<hr>"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-lg-8 col-md-10 mx-auto\">\n\n      <app-sub-post *ngFor=\"let post of postList\" [post]=\"post\" [isUser]=\"isUser\" (delete)=\"delete($event)\"></app-sub-post>\n      <!-- Pager -->\n      <div class=\"clearfix\">\n        <a class=\"btn btn-primary float-left\" *ngIf=\"page!=1\" (click)=\"newerPost()\">&larr; Newer Posts</a>\n        <a class=\"btn btn-primary float-right\" *ngIf=\"postList.length == 10\" (click)=\"olderPost()\">Older Posts &rarr;</a>\n      </div>\n    </div>\n  </div>\n</div>\n\n<hr>"
 
 /***/ }),
 
@@ -1530,12 +1472,12 @@ var MyPostsComponent = /** @class */ (function () {
         var _this = this;
         this.loadingService.show();
         this.postService.delete(post.ID).subscribe(function (data) {
-            _this.dialogService.showSuccess("delete successfull!");
+            _this.dialogService.showSuccess("Your post has been deleted");
             _this.postList.splice(_this.postList.indexOf(post), 1);
             _this.loadingService.hide();
         }, function (error) {
             _this.loadingService.hide();
-            _this.dialogService.showError("failed to delete this post");
+            _this.dialogService.showError("Failed to delete this post");
         });
     };
     __decorate([
@@ -1626,6 +1568,10 @@ var SubPostComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Output */])(),
         __metadata("design:type", Object)
     ], SubPostComponent.prototype, "delete", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */])(),
+        __metadata("design:type", Object)
+    ], SubPostComponent.prototype, "isUser", void 0);
     SubPostComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-sub-post',
@@ -1649,7 +1595,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, " .card {\n    margin-top: 0;\n    padding: 0;\n    background-color: rgba(214, 224, 226, 0.2);\n    -moz-border-top-left-radius:5px;\n    border-top-left-radius:5px;\n    -moz-border-top-right-radius:5px;\n    border-top-right-radius:5px;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.card.hovercard {\n    position: relative;\n    padding-top: 0;\n    overflow: hidden;\n    text-align: center;\n    background-color: #fff;\n    background-color: rgba(255, 255, 255, 1);\n}\n.card.hovercard .card-background {\n    height: 300px;\n}\n.card-background img {\n    -webkit-filter: blur(25px);\n    -moz-filter: blur(25px);\n    -o-filter: blur(25px);\n    -ms-filter: blur(25px);\n    filter: blur(25px);\n    margin-left: -100px;\n    margin-top: -200px;\n    min-width: 130%;\n}\n.card.hovercard .useravatar {\n    position: absolute;\n    top: 15px;\n    left: 0;\n    right: 0;\n}\n.card.hovercard .useravatar img {\n    /* width: 100px;\n    height: 100px; */\n    width: 180px;\n    height: 180px;\n    border-radius: 50%;\n    border: 5px solid rgba(255, 255, 255, 0.5);\n    -webkit-transform: translateX(0%) translateY(30%);\n            transform: translateX(0%) translateY(30%);\n}\n.card.hovercard .card-info {\n    position: absolute;\n    bottom: 14px;\n    left: 0;\n    right: 0;\n}\n.card.hovercard .card-info .card-title {\n    padding:0 5px;\n    font-size: 20px;\n    line-height: 1;\n    color: #262626;\n    background-color: rgba(255, 255, 255, 0.1);\n    border-radius: 4px;\n}\n.card.hovercard .card-info {\n    overflow: hidden;\n    font-size: 12px;\n    line-height: 20px;\n    color: #737373;\n    text-overflow: ellipsis;\n}\n.card.hovercard .bottom {\n    padding: 0 20px;\n    margin-bottom: 17px;\n}\n.btn-pref .btn {\n    -webkit-border-radius:0 !important;\n}\n.btn {\n    padding: 15px 19px;\n    letter-spacing: 0;\n}\n.image-upload {\n    position: absolute;\n    max-width: 180px;\n    height: 180px;\n    border: 5px solid rgba(255, 255, 255, 0.5);\n    -webkit-transform: translateX(64%) translateY(38%);\n    transform: translateX(-100%) translateY(30%);\n    opacity: 0;\n    z-index: 2;\n    border-radius: 0;\n}\n#nav-navi {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n/* @import url('https://fonts.googleapis.com/css?family=Libre+Franklin:700'); */\n.nav-tab {\n    font-family: 'Libre Franklin', sans-serif;\n    /* font-weight: 500; */\n    /* padding: 20px; */\n}\n.body-container {\n    margin-top: 20px;\n}\n@media screen and (max-width: 768px) {\n    #nav-navi {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: column;\n                flex-direction: column;\n    }\n    .nav-tab {\n        font-size: 20px;\n    }\n    #main {\n        font-size: 20px;\n    }\n    .body-container {\n        margin-top: 0px;\n    }\n}\n@media screen and (max-width: 480px) {\n    .nav-tab{\n        font-size: 20px;\n    }\n    #main {\n        font-size: 20px;\n    }\n    #nav-navi {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n    }\n    .body-container {\n        margin-top: 0px;\n    }\n}\n@media screen and (max-width: 414px) {\n    .nav-tab{\n        font-size: 20px;\n    }\n    #main {\n        font-size: 20px;\n    }\n    #nav-navi {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n    }\n    .body-container {\n        margin-top: 0px;\n    }\n}\n@media screen and (max-width: 384px) {\n    .nav-tab{\n        font-size: 13px;\n    }\n    #main {\n        font-size: 13px;\n    }\n    #nav-navi {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n    }\n    .body-container {\n        margin-top: 0px;\n    }\n}\n.wrapper {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: (1fr)[12];\n        grid-template-columns: repeat(12, 1fr);\n    /* grid-template-rows: 40px 100px 40px; \n     */\n     -ms-grid-rows: auto;\n         grid-template-rows: auto;\n}\n.header{\n    grid-column: span 12;\n}\n.menu {\n    grid-column: span 2;\n}\n.content {\n    grid-column: span 10;\n}\n@media screen and (max-width: 767px) {\n    .menu{\n        grid-row: span 1;\n        grid-column: span 12;\n    }\n    .content {\n        grid-column: span 12;\n    }\n}\n", ""]);
+exports.push([module.i, " .card {\n    margin-top: 0;\n    padding: 0;\n    background-color: rgba(214, 224, 226, 0.2);\n    -moz-border-top-left-radius:5px;\n    border-top-left-radius:5px;\n    -moz-border-top-right-radius:5px;\n    border-top-right-radius:5px;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.card.hovercard {\n    position: relative;\n    padding-top: 0;\n    overflow: hidden;\n    text-align: center;\n    background-color: #fff;\n    background-color: rgba(255, 255, 255, 1);\n}\n.card.hovercard .card-background {\n    height: 300px;\n}\n.card-background img {\n    -webkit-filter: blur(25px);\n    -moz-filter: blur(25px);\n    -o-filter: blur(25px);\n    -ms-filter: blur(25px);\n    filter: blur(25px);\n    margin-left: -100px;\n    margin-top: -200px;\n    min-width: 130%;\n}\n.card.hovercard .useravatar {\n    position: absolute;\n    top: 15px;\n    left: 0;\n    right: 0;\n}\n.card.hovercard .useravatar img {\n    /* width: 100px;\n    height: 100px; */\n    width: 180px;\n    height: 180px;\n    border-radius: 50%;\n    border: 5px solid rgba(255, 255, 255, 0.5);\n    -webkit-transform: translateX(0%) translateY(30%);\n            transform: translateX(0%) translateY(30%);\n}\n.card.hovercard .card-info {\n    position: absolute;\n    bottom: 14px;\n    left: 0;\n    right: 0;\n}\n.card.hovercard .card-info .card-title {\n    padding:0 5px;\n    font-size: 20px;\n    line-height: 1;\n    color: #262626;\n    background-color: rgba(255, 255, 255, 0.1);\n    border-radius: 4px;\n}\n.card.hovercard .card-info {\n    overflow: hidden;\n    font-size: 12px;\n    line-height: 20px;\n    color: #737373;\n    text-overflow: ellipsis;\n}\n.card.hovercard .bottom {\n    padding: 0 20px;\n    margin-bottom: 17px;\n}\n.btn-pref .btn {\n    -webkit-border-radius:0 !important;\n}\n.btn {\n    padding: 15px 19px;\n    letter-spacing: 0;\n}\n.image-upload {\n    position: absolute;\n    max-width: 180px;\n    height: 180px;\n    border: 5px solid rgba(255, 255, 255, 0.5);\n    -webkit-transform: translateX(64%) translateY(38%);\n    transform: translateX(-100%) translateY(30%);\n    opacity: 0;\n    z-index: 2;\n    border-radius: 0;\n}\n#nav-navi {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n.nav-tab {\n    font-family: 'Libre Franklin', sans-serif;\n    /* font-weight: 500; */\n    /* padding: 20px; */\n}\n.body-container {\n    margin-top: 20px;\n}\n@media screen and (max-width: 768px) {\n    #nav-navi {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n    }\n    .nav-tab {\n        font-size: 20px;\n    }\n    #main {\n        font-size: 20px;\n    }\n    .body-container {\n        margin-top: 0px;\n    }\n}\n@media screen and (max-width: 480px) {\n    .nav-tab{\n        font-size: 20px;\n    }\n    #main {\n        font-size: 20px;\n    }\n    #nav-navi {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n    }\n    .body-container {\n        margin-top: 0px;\n    }\n}\n@media screen and (max-width: 414px) {\n    .nav-tab{\n        font-size: 20px;\n    }\n    #main {\n        font-size: 20px;\n    }\n    #nav-navi {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n    }\n    .body-container {\n        margin-top: 0px;\n    }\n}\n@media screen and (max-width: 384px) {\n    .nav-tab{\n        font-size: 13px;\n    }\n    #main {\n        font-size: 13px;\n    }\n    #nav-navi {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n            -ms-flex-direction: row;\n                flex-direction: row;\n    }\n    .body-container {\n        margin-top: 0px;\n    }\n}\n.wrapper {\n    display: -ms-grid;\n    display: grid;\n    -ms-grid-columns: (1fr)[12];\n        grid-template-columns: repeat(12, 1fr);\n    /* grid-template-rows: 40px 100px 40px; \n     */\n     -ms-grid-rows: auto;\n         grid-template-rows: auto;\n}\n.header{\n    grid-column: span 12;\n}\n.menu {\n    grid-column: span 2;\n}\n.content {\n    grid-column: span 10;\n}\n@media screen and (max-width: 767px) {\n    .menu{\n        grid-row: span 1;\n        grid-column: span 12;\n    }\n    .content {\n        grid-column: span 12;\n    }\n}\n", ""]);
 
 // exports
 
@@ -1741,7 +1687,7 @@ var ProfileComponent = /** @class */ (function () {
         var _this = this;
         this.loading.show();
         this.userService.update(this.user).subscribe(function (data) {
-            _this.dialog.showSuccess("Change ok!");
+            _this.dialog.showSuccess("Your personal information has been modified successfully!");
             _this.loading.hide();
         }, function (error) {
             _this.dialog.showError('Failed to change!');

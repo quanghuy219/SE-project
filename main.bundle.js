@@ -50,7 +50,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Navigation -->\n<!-- *ngIf=\"router.url.indexOf('/main')!=-1\" -->\n<nav  class=\"navbar navbar-expand-lg navbar-light fixed-top\" id=\"mainNav\">\n  <div class=\"container\">\n    <a class=\"navbar-brand\" routerLink='main/home'>Blog</a>\n    <button class=\"navbar-toggler navbar-toggler-right collapsed\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarResponsive\" aria-controls=\"navbarResponsive\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      Menu\n      <i class=\"fa fa-bars\"></i>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarResponsive\">\n      <ul class=\"navbar-nav ml-auto\">\n        <li class=\"nav-item\" (keydown)=\"keyDownFunction($event)\">\n            <div class=\"input-group\">\n                <input class=\"form-control search-box\" [(ngModel)]=\"searchContent\" name=\"searchcontent\" placeholder=\"Find an article...\">\n              </div>\n        </li> \n        <li class=\"nav-item\" id=\"search-button\">\n            <a class=\"nav-link\" (click)=\"search()\"><i class=\"fa fa-search\"></i></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"main/home\">Home</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"main/edit-post/0\">Create Your Post</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" *ngIf=\"isLog\" routerLink=\"main/profile\">Profile</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"isLog\">\n          <a class=\"nav-link\" routerLink=\"login\" (click)=\"logout()\">Logout</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"!isLog\">\n          <a class=\"nav-link\" routerLink=\"login\">Login</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"!isLog\">\n            <a class=\"nav-link\" routerLink=\"login/register\">Sign up</a>\n        </li>  \n      </ul>\n    </div>\n  </div>\n</nav>\n\n<router-outlet></router-outlet>\n\n <!-- Footer -->\n <footer *ngIf=\"router.url.indexOf('/main')!=-1\" class=\"footer\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-8 col-md-10 mx-auto\">\n        <ul class=\"list-inline text-center\">\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-twitter fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-facebook fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-github fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n        </ul>\n        <p class=\"copyright text-muted\">Copyright &copy; Your Website 2018</p>\n      </div>\n    </div>\n  </div>\n</footer>\n"
+module.exports = "<!-- Navigation -->\n<!-- *ngIf=\"router.url.indexOf('/main')!=-1\" -->\n<nav  class=\"navbar navbar-expand-lg navbar-light fixed-top\" id=\"mainNav\">\n  <div class=\"container\">\n    <a class=\"navbar-brand\" routerLink='main/home'>Blog</a>\n    <button class=\"navbar-toggler navbar-toggler-right collapsed\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarResponsive\" aria-controls=\"navbarResponsive\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      Menu\n      <i class=\"fa fa-bars\"></i>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarResponsive\">\n      <ul class=\"navbar-nav ml-auto\">\n        <li class=\"nav-item\" (keydown)=\"keyDownFunction($event)\">\n            <div class=\"input-group\">\n                <input class=\"form-control search-box\" [(ngModel)]=\"searchContent\" name=\"searchcontent\" placeholder=\"Find an article...\">\n              </div>\n        </li> \n        <li class=\"nav-item\" id=\"search-button\">\n            <a class=\"nav-link\" (click)=\"search()\"><i class=\"fa fa-search\"></i></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"main/home\">Home</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" routerLink=\"main/edit-post/0\" (click)=\"hideMenu()\">Create Your Post</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" *ngIf=\"isLog\" routerLink=\"main/profile\" (click)=\"hideMenu()\">Profile</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"isLog\">\n          <a class=\"nav-link\" routerLink=\"login\" (click)=\"logout()\">Logout</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"!isLog\">\n          <a class=\"nav-link\" routerLink=\"login\" (click)=\"hideMenu()\">Login</a>\n        </li>\n        <li class=\"nav-item\" *ngIf=\"!isLog\">\n            <a class=\"nav-link\" routerLink=\"login/register\" (click)=\"hideMenu()\">Sign up</a>\n        </li>  \n      </ul>\n    </div>\n  </div>\n</nav>\n\n<router-outlet></router-outlet>\n\n <!-- Footer -->\n <footer *ngIf=\"router.url.indexOf('/main')!=-1\" class=\"footer\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-lg-8 col-md-10 mx-auto\">\n        <ul class=\"list-inline text-center\">\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-twitter fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-facebook fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n          <li class=\"list-inline-item\">\n            <a href=\"/\">\n              <span class=\"fa-stack fa-lg\">\n                <i class=\"fa fa-circle fa-stack-2x\"></i>\n                <i class=\"fa fa-github fa-stack-1x fa-inverse\"></i>\n              </span>\n            </a>\n          </li>\n        </ul>\n        <p class=\"copyright text-muted\">Copyright &copy; BlogApp 2018</p>\n      </div>\n    </div>\n  </div>\n</footer>\n"
 
 /***/ }),
 
@@ -90,6 +90,10 @@ var AppComponent = /** @class */ (function () {
         var _this = this;
         $(window).click(function () {
             _this.searchContent = "";
+            $("#navbarResponsive").removeClass("show");
+        });
+        $(window).click(function () {
+            _this.searchContent = "";
         });
         $('#search-button').click(function (e) {
             e.stopPropagation();
@@ -108,6 +112,7 @@ var AppComponent = /** @class */ (function () {
         this.storageService.removeItem("profilePicture");
         this.storageService.removeItem("username");
         this.storageService.removeItem("password");
+        this.hideMenu();
     };
     AppComponent.prototype.keyDownFunction = function (event) {
         if (event.keyCode == 13) {
@@ -115,6 +120,9 @@ var AppComponent = /** @class */ (function () {
         }
         if (event.keyCode == 27)
             this.searchContent = ""; // press esc to exit edit mode
+    };
+    AppComponent.prototype.hideMenu = function () {
+        $("#navbarResponsive").removeClass("show");
     };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -444,7 +452,6 @@ var LoginService = /** @class */ (function () {
             }, function (error) {
                 _this.dialogService.showError("Your Session work is expired! goto login!").subscribe(function (data) {
                     _this.router.navigate(['/login'], { queryParams: { returnUrl: _this.router.url } });
-                    console.log("current route: ", _this.router.url);
                 });
                 observer.error();
                 observer.complete();
@@ -593,7 +600,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var ConfigService = /** @class */ (function () {
     function ConfigService() {
-        this.urlBase = 'https://app-4a5dbc4f-d024-436d-a4c4-74ab131c9fa3.cleverapps.io/api/';
+        // private urlBase = 'https://app-4a5dbc4f-d024-436d-a4c4-74ab131c9fa3.cleverapps.io/api/'
+        this.urlBase = "http://35.232.164.78:8080/api/";
     }
     ConfigService.prototype.getBaseURL = function () {
         return this.urlBase;
@@ -1176,7 +1184,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var LoadingService = /** @class */ (function () {
     function LoadingService() {
-        this.html = "<div class=\"image-container\" style=\"  position: fixed;\n                                                        z-index: 99999999;\n                                                        top: 0;\n                                                        bottom: 0;\n                                                        left: 0;\n                                                        text-align: center;\n                                                        right: 0;\n                                                        background-color: beige;\n                                                        opacity: 0.91;\"> \n                    <img class=\"jpg-image\" style=\"position: relative; top: calc(50% - 30px); \" width=100 height=100 src=\"https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif\" />\n                </div>";
+        this.html = "<div class=\"image-container\" style=\"  position: fixed;\n                                                        z-index: 99999999;\n                                                        top: 0;\n                                                        bottom: 0;\n                                                        left: 0;\n                                                        text-align: center;\n                                                        right: 0;\n                                                        background-color: #eaefef;\n                                                        opacity: 0.91;\"> \n                    <img class=\"jpg-image\" style=\"position: relative; top: calc(50% - 30px); \" width=100 height=100 src=\"https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif\" />\n                </div>";
     }
     LoadingService.prototype.show = function (id) {
         if (!id) {
