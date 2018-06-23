@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
 
   // private urlBase = 'https://app-4a5dbc4f-d024-436d-a4c4-74ab131c9fa3.cleverapps.io/api/'
-  private urlBase = "https://quanghuyvps.dynu.net:8080/api/"
+  private urlBase = "https://quanghuyvps.dynu.net/blogserver/api/"
   constructor() { }
 
   getBaseURL() {
